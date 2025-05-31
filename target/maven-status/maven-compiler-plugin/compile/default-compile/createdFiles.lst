@@ -1,0 +1,5 @@
+com/example/studentscreate/service/StudentCreateService.class
+com/example/studentscreate/StudentCreateApplication.class
+com/example/studentscreate/controller/StudentCreateController.class
+com/example/studentscreate/repository/StudentRepository.class
+com/example/studentscreate/model/Student.class

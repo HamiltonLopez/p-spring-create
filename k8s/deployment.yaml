@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: students-create-service
+  labels:
+    app: students-create-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: students-create-service
+  template:
+    metadata:
+      labels:
+        app: students-create-service
+    spec:
+      containers:
+        - name: students-create-service
+          image: students-create-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mariadb://mariadb-service:3306/studentsdb
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m" 

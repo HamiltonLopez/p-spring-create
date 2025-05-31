@@ -19,6 +19,9 @@ public class StudentCreateController {
     @PostMapping
     public ResponseEntity<?> createStudent(@RequestBody Student student) {
         try {
+            if (student == null) {
+                return new ResponseEntity<>("Student cannot be null", HttpStatus.BAD_REQUEST);
+            }
             Student createdStudent = service.createStudent(student);
             return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {

@@ -1,59 +1,81 @@
 package com.example.studentscreate.service;
 
+/*import com.example.studentscreate.model.Student;
+import com.example.studentscreate.repository.StudentRepository;*/
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class StudentCreateServiceTest {
+@ExtendWith(MockitoExtension.class)
+public class StudentCreateServiceTest {
 /*
     @Mock
-    private StudentRepository repository;
+    private StudentRepository studentRepository;
 
-    private StudentCreateService service;
+    @InjectMocks
+    private StudentCreateService studentCreateService;
+
+    private Student testStudent;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        service = new StudentCreateService(repository);
+        testStudent = new Student();
+        testStudent.setName("Test Student");
+        testStudent.setEmail("test@example.com");
+        testStudent.setAge(20);
     }
 
     @Test
     void createStudent_Success() {
         // Arrange
-        Student student = new Student("Test Name", "test@email.com", 20);
-        when(repository.existsByEmail(anyString())).thenReturn(false);
-        when(repository.save(any(Student.class))).thenReturn(student);
+        when(studentRepository.existsByEmail(testStudent.getEmail())).thenReturn(false);
+        when(studentRepository.save(any(Student.class))).thenReturn(testStudent);
 
         // Act
-        Student result = service.createStudent(student);
+        Student createdStudent = studentCreateService.createStudent(testStudent);
 
         // Assert
-        assertNotNull(result);
-        assertEquals("Test Name", result.getName());
-        assertEquals("test@email.com", result.getEmail());
-        assertEquals(20, result.getAge());
-        verify(repository).existsByEmail(student.getEmail());
-        verify(repository).save(student);
+        assertNotNull(createdStudent);
+        assertEquals(testStudent.getName(), createdStudent.getName());
+        assertEquals(testStudent.getEmail(), createdStudent.getEmail());
+        assertEquals(testStudent.getAge(), createdStudent.getAge());
+        
+        verify(studentRepository).existsByEmail(testStudent.getEmail());
+        verify(studentRepository).save(testStudent);
     }
 
     @Test
     void createStudent_EmailExists_ThrowsException() {
         // Arrange
-        Student student = new Student("Test Name", "existing@email.com", 20);
-        when(repository.existsByEmail(anyString())).thenReturn(true);
+        when(studentRepository.existsByEmail(testStudent.getEmail())).thenReturn(true);
 
         // Act & Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            service.createStudent(student);
-        });
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> studentCreateService.createStudent(testStudent)
+        );
 
         assertEquals("Email already exists", exception.getMessage());
-        verify(repository).existsByEmail(student.getEmail());
-        verify(repository, never()).save(any(Student.class));
+        verify(studentRepository).existsByEmail(testStudent.getEmail());
+        verify(studentRepository, never()).save(any(Student.class));
+    }
+
+    @Test
+    void createStudent_NullStudent_ThrowsException() {
+        // Act & Assert
+        assertThrows(
+            NullPointerException.class,
+            () -> studentCreateService.createStudent(null)
+        );
+        
+        verify(studentRepository, never()).existsByEmail(any());
+        verify(studentRepository, never()).save(any());
     }*/
 } 

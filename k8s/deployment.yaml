@@ -5,7 +5,7 @@ metadata:
   labels:
     app: students-create-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: students-create-service
@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: students-create-service
-          image: students-create-service:latest
-          imagePullPolicy: Never
+          image: hamiltonlg/p-spring-create-service:main
           ports:
             - containerPort: 8081
           env:
